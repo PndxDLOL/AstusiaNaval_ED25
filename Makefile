@@ -1,12 +1,12 @@
-CXX=g++
-CXXFLAGS=-std=c++11 -Wall
-SRC=src
-TARGET=astucia_naval_duelo_antitontos
+    CXX=g++
+    CXXFLAGS=-std=c++11 -Wall
+    SRC=src
+    TARGET=astucia_naval_V2
 
-all: $(TARGET)
+    all: $(TARGET)
 
-$(TARGET): $(SRC)/main.cpp $(SRC)/casilla.cpp $(SRC)/tablero.cpp $(SRC)/juego.cpp
-$(CXX) $(CXXFLAGS) -o $(TARGET) $(SRC)/main.cpp $(SRC)/casilla.cpp $(SRC)/tablero.cpp $(SRC)/juego.cpp
+    $(TARGET): $(SRC)/main.cpp $(SRC)/casilla.cpp $(SRC)/tablero.cpp $(SRC)/juego.cpp
+	$(CXX) $(CXXFLAGS) -o $(TARGET) $(SRC)/main.cpp $(SRC)/casilla.cpp $(SRC)/tablero.cpp $(SRC)/juego.cpp
 
-clean:
-rm -f $(TARGET)
+    clean:
+	rm -f $(TARGET)
