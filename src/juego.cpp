@@ -115,26 +115,55 @@ void Juego::nuevaPartidaManual(){
     enCurso = true;
 }
 
+// Función simple de encriptación/desencriptación XOR
+std::string xorCrypt(const std::string &input, char key = 'K') {
+    std::string output = input;
+    for (size_t i = 0; i < input.size(); i++) {
+        output[i] = input[i] ^ key; 
+    }
+    return output;
+}
+
 // Carga una partida desde el archivo en 'ruta'.
 void Juego::cargarPartida(const char *ruta){
     ifstream in(ruta);
-    if(!in.is_open()){cout<<"No se encontro "<<ruta<<"\n";menuDuranteJuego();}
-    getline(in,n1);
-    getline(in,n2);
-    t1.cargar(in);
-    t2.cargar(in);
-    in>> b1 >> b2 >> turnoActual;
+    if(!in.is_open()){
+        cout<<"No se encontro "<<ruta<<"\n";
+        menuDuranteJuego();
+        return;
+    }
+
+
+    std::stringstream buffer;
+    buffer << in.rdbuf();  
+    in.close();
+
+    std::string decoded = xorCrypt(buffer.str());
+
+    std::istringstream data(decoded);
+    std::getline(data, n1);
+    std::getline(data, n2);
+    t1.cargar(data);
+    t2.cargar(data);
+    data >> b1 >> b2 >> turnoActual;    
     in.close();
     cout<<"Partida cargada.\n";
     enCurso = true;
 }
 
+
 // Guarda la partida en el archivo en 'ruta'.
 void Juego::guardarPartida(const char *ruta) const{
-    ofstream out(ruta);
-    out<<n1<<"\n"<<n2<<"\n";
-    t1.guardar(out);t2.guardar(out);
-    out<<b1<<' '<<b2<<' '<<turnoActual<<"\n";
+    std::ostringstream raw; 
+    raw << n1 << "\n" << n2 << "\n";
+
+    t1.guardar(raw);
+    t2.guardar(raw);
+    raw << b1 << ' ' << b2 << ' ' << turnoActual << "\n";
+
+    std::string data = xorCrypt(raw.str());
+    std::ofstream out(ruta, std::ios::binary); 
+    out << data;
     out.close();
     cout<<"Partida guardada.\n¡Gracias por jugar!";
 }
