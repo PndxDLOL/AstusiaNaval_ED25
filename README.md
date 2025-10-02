@@ -29,9 +29,9 @@ Características:
 
   1) Cada jugador coloca sus barcos en el tablero indicando fila, columna y orientación (H = Horizontal, V = Vertical).
   2) Los barcos no se pueden solapar ni salir del tablero.
-  3) En cada turno, un jugador dispara a una casilla del tablero enemigo:
-      * Si impacta 🎯, puede volver a disparar.
-      * Si falla 🌊, el turno pasa al otro jugador.
+  3) En cada turno, un jugador dispara a una casilla del tablero enemigo y nos indica:
+      * Si impacta 🎯
+      * Si falla 🌊
   4) Gana el jugador que logre hundir todos los barcos enemigos.
 
 
